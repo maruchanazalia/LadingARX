@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ARXSoftware() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -47,12 +49,16 @@ export default function ARXSoftware() {
     { name: "QRIVA", category: "Web Especializada", description: "Control de accesos a eventos con códigos QR", icon: "🌐" }
   ];
 
-  const handleInputChange = (e) => {
+  const handleProjectClick = (name: string) => {
+    navigate(`/proyecto/${encodeURIComponent(name)}`);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
     setSubmitted(true);
     setTimeout(() => {
@@ -154,7 +160,7 @@ export default function ARXSoftware() {
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
             <button className="btn-red">Comenzar Ahora →</button>
-            <button style={{ padding: '1rem 2rem', border: '2px solid rgba(220, 38, 38, 0.6)', backgroundColor: 'transparent', color: 'white', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s' }} onMouseEnter={e => { e.target.backgroundColor = 'rgba(220, 38, 38, 0.1)'; e.target.borderColor = 'rgba(220, 38, 38, 1)'; }} onMouseLeave={e => { e.target.backgroundColor = 'transparent'; e.target.borderColor = 'rgba(220, 38, 38, 0.6)'; }}>Ver Portafolio</button>
+            <button style={{ padding: '1rem 2rem', border: '2px solid rgba(220, 38, 38, 0.6)', backgroundColor: 'transparent', color: 'white', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s' }}>Ver Portafolio</button>
           </div>
         </div>
       </section>
@@ -203,7 +209,7 @@ export default function ARXSoftware() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '5rem' }}>
             {projects.map((project, idx) => (
-              <div key={idx} className="card-hover" style={{ cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-8px)'} onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
+              <div key={idx} className="card-hover" style={{cursor:'pointer'}} onClick={() => handleProjectClick(project.name)}>
                 <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{project.icon}</div>
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#fca5a5', marginBottom: '0.5rem' }}>{project.name}</h3>
                 <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'rgba(248, 113, 113, 0.7)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{project.category}</p>
@@ -211,7 +217,7 @@ export default function ARXSoftware() {
               </div>
             ))}
           </div>
-          <div style={{ padding: '3rem', borderRadius: '1.5rem', background: 'linear-gradient(135deg, rgba(153, 27, 27, 0.2), rgba(127, 29, 29, 0.1))', border: '1px solid rgba(220, 38, 38, 0.4)', backdropFilter: 'blur(12px)', transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(220, 38, 38, 0.6)'; e.currentTarget.style.boxShadow = '0 0 40px rgba(220, 38, 38, 0.2)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(220, 38, 38, 0.4)'; e.currentTarget.style.boxShadow = 'none'; }}>
+          <div style={{ padding: '3rem', borderRadius: '1.5rem', background: 'linear-gradient(135deg, rgba(153, 27, 27, 0.2), rgba(127, 29, 29, 0.1))', border: '1px solid rgba(220, 38, 38, 0.4)', backdropFilter: 'blur(12px)', transition: 'all 0.3s' }}>
             <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#fca5a5', marginBottom: '1.5rem' }}>Servicio Destacado: Migración Contable Segura</h3>
             <p style={{ fontSize: '1.125rem', color: '#e5e7eb', marginBottom: '2rem', lineHeight: 1.8 }}>Migrar a CONTPAQi no tiene que ser complicado. Nuestro servicio de conversión de pólizas y cuentas contables garantiza una migración rápida, segura y sin complicaciones desde otros sistemas contables.</p>
             <button className="btn-red">Conocer Más</button>
@@ -237,7 +243,7 @@ export default function ARXSoftware() {
               <input type="email" name="email" placeholder="Tu correo" value={formData.email} onChange={handleInputChange} />
             </div>
             <input type="text" name="subject" placeholder="Asunto" value={formData.subject} onChange={handleInputChange} style={{ marginBottom: '1rem' }} />
-            <textarea name="message" placeholder="Cuéntanos sobre tu proyecto" rows="6" value={formData.message} onChange={handleInputChange} style={{ marginBottom: '1rem' }}></textarea>
+            <textarea name="message" placeholder="Cuéntanos sobre tu proyecto" rows={6} value={formData.message} onChange={handleInputChange} style={{ marginBottom: '1rem' }}></textarea>
             <button className="btn-red" onClick={handleSubmit} style={{ width: '100%' }}>{submitted ? 'Mensaje Enviado Correctamente' : 'Enviar Mensaje'}</button>
           </div>
         </div>
