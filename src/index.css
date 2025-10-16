@@ -1,0 +1,102 @@
+/* PALETA CORPORATIVA */
+:root {
+  --red-main: #891D1A;
+  --beige-bg: #F1E6D2;
+  --accent-bluegray: #5E657B;
+  --black-warm: #210706;
+  --white: #fff;
+  --card-bg: #fff;
+}
+html, body {
+  min-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  background: var(--beige-bg);
+  color: var(--accent-bluegray);
+  font-family: 'Inter', system-ui, Arial, sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+a {
+  color: var(--red-main);
+  text-decoration: none;
+  transition: color .2s;
+}
+a:hover {
+  color: var(--black-warm);
+  text-decoration: underline;
+}
+h1, h2, h3, h4 {
+  margin-top: 0;
+  font-family: inherit;
+  color: var(--black-warm);
+  font-weight: 900;
+}
+section {
+  width: 100%;
+  padding-inline: 24px;
+  box-sizing: border-box;
+}
+.table-container {
+  overflow-x: auto;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 1rem;
+}
+th, td {
+  padding: 14px 10px;
+  text-align: left;
+}
+th {
+  background: var(--accent-bluegray);
+  color: var(--beige-bg);
+  font-weight: 700;
+  font-size: 1.05em;
+}
+tbody tr:nth-child(even) {
+  background: #f7f3ea;
+}
+button, input, textarea {
+  font-family: inherit;
+  border-radius: 6px;
+  border: 1px solid #dadada;
+  background: var(--white);
+}
+button {
+  background: var(--red-main);
+  color: var(--white);
+  font-weight: 600;
+  border: none;
+  padding: 0.95em 2.2em;
+  transition: background .23s, box-shadow .23s;
+  cursor: pointer;
+}
+button:hover {
+  background: var(--accent-bluegray);
+}
+input, textarea {
+  width: 100%;
+  padding: 0.7em 1em;
+  margin-bottom: 10px;
+  font-size: 1em;
+  border: 1px solid #dfdfdf;
+}
+input:focus, textarea:focus {
+  border-color: var(--red-main);
+  outline: 2px solid var(--red-main);
+}
+@media (max-width: 600px) {
+  section { padding-inline: 2vw; }
+}
