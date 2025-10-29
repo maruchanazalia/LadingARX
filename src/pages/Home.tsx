@@ -166,7 +166,7 @@ export default function ARXSoftware() {
       </section>
 
       {/* Quiénes Somos */}
-      <section id="quienes" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10 }}>
+      <section id="about" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10 }}>
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, marginBottom: '1.5rem' }}>Innovación con Propósito</h2>
@@ -201,7 +201,7 @@ export default function ARXSoftware() {
       </section>
 
       {/* Portafolio */}
-      <section id="portafolio" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10 }}>
+      <section id="portfolio" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10 }}>
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, marginBottom: '1.5rem' }}>Proyectos que Impulsan Negocios</h2>
@@ -226,7 +226,7 @@ export default function ARXSoftware() {
       </section>
 
       {/* Contacto */}
-      <section id="contacto" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10 }}>
+      <section id="contact" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10 }}>
         <div style={{ maxWidth: '56rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, marginBottom: '1.5rem' }}>Listo para Transformar</h2>
