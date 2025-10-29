@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const Footer = () => (
   <footer style={{ background: '#210706', color: '#F1E6D2', padding: '2rem 0', textAlign: 'center', marginTop: '3rem', fontSize: 18 }}>
