@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const Header = () => (
   <header style={{ background: '#891D1A', color: '#fff', padding: '1.5rem 0', borderBottom: '5px solid #210706', boxShadow: '0 2px 6px #891D1A12' }}>
