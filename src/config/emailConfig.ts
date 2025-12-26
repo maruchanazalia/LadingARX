@@ -1,15 +1,19 @@
+// Configuración con valores por defecto para producción
+// Si prefieres hardcodear las claves públicas aquí, puedes hacerlo (son públicas de todas formas)
+const DEFAULT_RECAPTCHA_SITE_KEY = '6Ldi2DcsAAAAAAwCpzgA8bk81P4LHvE7PyMUDihQ';
+const DEFAULT_EMAILJS_PUBLIC_KEY = '5HE0Yrn85GGSh4T_4';
 
 export const emailConfig = {
   // EmailJS Configuration
   emailjs: {
     serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || '',
     templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '',
-    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || DEFAULT_EMAILJS_PUBLIC_KEY,
   },
   
   // Google reCAPTCHA Configuration
   recaptcha: {
-    siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY || '',
+    siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY || DEFAULT_RECAPTCHA_SITE_KEY,
   },
   
   // Email de destino donde recibirás los mensajes

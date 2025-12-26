@@ -416,13 +416,28 @@ export default function ARXSoftware() {
             ></textarea>
             
             {/* reCAPTCHA */}
-            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={emailConfig.recaptcha.siteKey}
-                theme="light"
-              />
-            </div>
+            {emailConfig.recaptcha.siteKey ? (
+              <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={emailConfig.recaptcha.siteKey}
+                  theme="light"
+                />
+              </div>
+            ) : (
+              <div style={{ 
+                marginBottom: '1rem', 
+                padding: '1rem', 
+                backgroundColor: '#fff3cd', 
+                border: '1px solid #ffc107', 
+                borderRadius: '8px', 
+                color: '#856404',
+                textAlign: 'center',
+                fontSize: '0.9rem'
+              }}>
+                ⚠️ reCAPTCHA no configurado. Por favor configura VITE_RECAPTCHA_SITE_KEY
+              </div>
+            )}
             
             <button 
               className="btn-red" 
