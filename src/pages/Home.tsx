@@ -183,6 +183,44 @@ export default function ARXSoftware() {
           0% { background-position: -1000px 0; }
           100% { background-position: 1000px 0; }
         }
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        
+        .hero-gradient {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent
+          );
+          transition: left 0.6s ease;
+          z-index: 1;
+          pointer-events: none;
+        }
+        
+        .hero-gradient:hover::before {
+          left: 100%;
+        }
         
         .animate-blob { animation: blob 7s infinite; }
         .delay-2000 { animation-delay: 2s; }
@@ -299,6 +337,102 @@ export default function ARXSoftware() {
             0 0 0 3px rgba(211, 47, 47, 0.2);
         }
         
+        /* Responsive para móvil */
+        @media (max-width: 768px) {
+          .btn-red {
+            padding: 0.875rem 2rem;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 300px;
+          }
+          
+          .card-hover {
+            padding: 1.5rem;
+            border-radius: 16px;
+          }
+          
+          h1 {
+            font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
+          }
+          
+          h2 {
+            font-size: clamp(1.5rem, 6vw, 2rem) !important;
+          }
+          
+          h3 {
+            font-size: clamp(1.25rem, 5vw, 1.75rem) !important;
+          }
+          
+          section {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            padding-top: 4rem !important;
+            padding-bottom: 4rem !important;
+          }
+          
+          /* Grids responsivos - 1 columna en móvil */
+          [style*="gridTemplateColumns"] {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
+          }
+          
+          /* Ajustes de padding en cards */
+          [style*="padding: '3rem'"] {
+            padding: 1.5rem !important;
+          }
+          
+          [style*="padding: '2rem'"] {
+            padding: 1.25rem !important;
+          }
+          
+          /* Cards del equipo más compactas en móvil */
+          .team-card-img {
+            height: 200px !important;
+            padding: 0.75rem !important;
+          }
+          
+          .team-card {
+            padding: 1.5rem !important;
+          }
+          
+          .team-card h3 {
+            font-size: 1.25rem !important;
+          }
+          
+          .team-card p {
+            font-size: 0.875rem !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .btn-red {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+          }
+          
+          .card-hover {
+            padding: 1.25rem;
+          }
+          
+          section {
+            padding-top: 3rem !important;
+            padding-bottom: 3rem !important;
+          }
+          
+          h1 {
+            font-size: clamp(1.5rem, 7vw, 2rem) !important;
+            margin-bottom: 1rem !important;
+          }
+          
+          h2 {
+            font-size: clamp(1.25rem, 6vw, 1.75rem) !important;
+            margin-bottom: 1rem !important;
+          }
+          
+          h3 {
+            font-size: clamp(1.1rem, 5vw, 1.5rem) !important;
+          }
+        }
       `}</style>
 
       {/* Fondo decorativo sutil */}
@@ -311,7 +445,32 @@ export default function ARXSoftware() {
       {/* Hero */}
       <section 
         id="inicio" 
-        style={{ position: 'relative', minHeight: '65vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '8rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, background: 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)', overflow: 'hidden' }}
+        className="hero-gradient"
+        style={{ 
+          position: 'relative', 
+          minHeight: 'clamp(50vh, 65vh, 70vh)', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          paddingTop: 'clamp(6rem, 8vw, 8rem)', 
+          paddingBottom: 'clamp(4rem, 6vw, 6rem)', 
+          paddingLeft: '1rem', 
+          paddingRight: '1rem', 
+          zIndex: 10, 
+          background: 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)',
+          backgroundSize: '200% 200%',
+          overflow: 'hidden',
+          animation: 'gradientShift 8s ease infinite',
+          transition: 'all 0.4s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(110deg, #e53935 0%, #d32f2f 40%, #c62828 100%)';
+          e.currentTarget.style.backgroundSize = '200% 200%';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)';
+          e.currentTarget.style.backgroundSize = '200% 200%';
+        }}
       >
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(0, 0, 0, 0.2)', zIndex: 1 }}></div>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)', zIndex: 1 }}></div>
@@ -324,12 +483,12 @@ export default function ARXSoftware() {
           <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', fontWeight: 700, marginBottom: '1.5rem', lineHeight: 1.2, color: '#ffffff', fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: '-0.02em', textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)' }}>
             Desarrollamos sistemas que ordenan empresas
           </h1>
-          <p style={{ fontSize: '1.2rem', color: 'rgba(255, 255, 255, 0.95)', marginBottom: '2.5rem', lineHeight: 1.7, maxWidth: '56rem', marginLeft: 'auto', marginRight: 'auto' }}>
+          <p style={{ fontSize: 'clamp(1rem, 4vw, 1.2rem)', color: 'rgba(255, 255, 255, 0.95)', marginBottom: '2.5rem', lineHeight: 1.7, maxWidth: '56rem', marginLeft: 'auto', marginRight: 'auto', padding: '0 1rem' }}>
             Especializados en software de gestión. Creamos soluciones que organizan procesos, datos y operaciones para que tu empresa funcione de manera más eficiente y ordenada.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
-            <button className="btn-red">Comenzar Ahora →</button>
-            <button style={{ padding: '1rem 2rem', border: '2px solid rgba(255, 255, 255, 0.8)', backgroundColor: 'transparent', color: 'white', borderRadius: '30px', fontSize: '1rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.3s' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}>Ver Portafolio</button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center', width: '100%', padding: '0 1rem' }}>
+            <button className="btn-red" style={{ width: '100%', maxWidth: '300px' }}>Comenzar Ahora →</button>
+            <button style={{ padding: '1rem 2rem', border: '2px solid rgba(255, 255, 255, 0.8)', backgroundColor: 'transparent', color: 'white', borderRadius: '30px', fontSize: 'clamp(0.9rem, 3vw, 1rem)', fontWeight: 600, cursor: 'pointer', transition: 'all 0.3s', width: '100%', maxWidth: '300px' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}>Ver Portafolio</button>
           </div>
         </div>
       </section>
@@ -376,27 +535,27 @@ export default function ARXSoftware() {
               Especialistas en Software de Gestión
             </p>
             <p style={{ fontSize: '1.125rem', color: '#2a2a2a', lineHeight: '1.8', marginBottom: '2rem' }}>
-              No hacemos de todo. Nos especializamos en desarrollar sistemas de gestión que ordenan empresas: control de inventarios, ventas, procesos operativos e integración con sistemas contables. Cada proyecto que desarrollamos resuelve problemas reales de gestión empresarial.
+              Nos especializamos en desarrollar sistemas de gestión que ordenan empresas: control de inventarios, ventas, procesos operativos e integración con sistemas contables. Cada proyecto que desarrollamos resuelve problemas reales de gestión empresarial.
             </p>
           </div>
 
           {/* Nuestro Equipo */}
-          <h3 style={{ fontSize: '2.4rem', fontWeight: 600, textAlign: 'center', marginBottom: '4rem', color: '#1a1a1a', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Nuestro Equipo</h3>
+          <h3 style={{ fontSize: 'clamp(1.75rem, 5vw, 2.4rem)', fontWeight: 600, textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 4rem)', color: '#1a1a1a', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Nuestro Equipo</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '6rem' }}>
             {team.map((member) => (
-              <div key={member.id} className="fade-in-up card-hover" style={{ 
+              <div key={member.id} className="fade-in-up card-hover team-card" style={{ 
                 animationDelay: `${member.id * 0.1}s`, 
                 display: 'flex', 
                 flexDirection: 'column', 
                 height: '100%',
-                padding: '2rem',
+                padding: 'clamp(1.25rem, 3vw, 2rem)',
                 background: '#ffffff',
                 boxShadow: '12px 12px 24px rgba(0, 0, 0, 0.15), -12px -12px 24px rgba(255, 255, 255, 0.9)',
                 position: 'relative',
                 zIndex: 1,
                 borderRadius: '20px'
               }}>
-                <div style={{ 
+                <div className="team-card-img" style={{ 
                   borderRadius: '20px', 
                   overflow: 'hidden', 
                   marginBottom: '1.5rem', 
@@ -407,8 +566,8 @@ export default function ARXSoftware() {
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
-                  height: '280px', 
-                  padding: '1rem',
+                  height: 'clamp(200px, 25vw, 280px)', 
+                  padding: 'clamp(0.75rem, 2vw, 1rem)',
                   position: 'relative'
                 }}>
                   <img 
@@ -428,9 +587,9 @@ export default function ARXSoftware() {
                   flexDirection: 'column',
                   flex: 1
                 }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#d32f2f', marginBottom: '0.5rem', lineHeight: 1.3 }}>{member.name}</h3>
-                  <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#b71c1c', marginBottom: '0.75rem', lineHeight: 1.4 }}>{member.role}</p>
-                  <p style={{ color: '#555555', fontSize: '0.95rem', lineHeight: 1.6, flex: 1 }}>{member.bio}</p>
+                  <h3 style={{ fontSize: 'clamp(1.15rem, 3vw, 1.5rem)', fontWeight: 600, color: '#d32f2f', marginBottom: '0.5rem', lineHeight: 1.3 }}>{member.name}</h3>
+                  <p style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', fontWeight: 600, color: '#b71c1c', marginBottom: '0.75rem', lineHeight: 1.4 }}>{member.role}</p>
+                  <p style={{ color: '#555555', fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)', lineHeight: 1.6, flex: 1 }}>{member.bio}</p>
                 </div>
               </div>
             ))}
@@ -517,10 +676,10 @@ export default function ARXSoftware() {
               </div>
             ))}
           </div>
-          <div className="card-hover" style={{ padding: '3rem', marginBottom: '4rem' }}>
+          <div className="card-hover" style={{ padding: 'clamp(1.5rem, 4vw, 3rem)', marginBottom: '4rem' }}>
             <h3 style={{ fontSize: '2rem', fontWeight: 600, color: '#d32f2f', marginBottom: '1.5rem', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Especialización en Software de Gestión</h3>
             <p style={{ fontSize: '1.125rem', color: '#2a2a2a', marginBottom: '2rem', lineHeight: 1.8 }}>Cada sistema que desarrollamos está diseñado para ordenar procesos específicos: gestión de inventarios, control de ventas, seguimiento de operaciones y migración de datos contables. No hacemos de todo, nos especializamos en sistemas que organizan empresas.</p>
-            <button className="btn-red">Ver Nuestros Casos</button>
+       
           </div>
         </div>
       </section>
