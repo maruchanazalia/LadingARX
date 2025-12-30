@@ -1,28 +1,47 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
-// @ts-ignore - react-google-recaptcha no tiene tipos oficiales
 import ReCAPTCHA from 'react-google-recaptcha';
 import { emailConfig } from '../config/emailConfig';
 import carlosImage from '../assets/carlos.jpeg';
 import angyImage from '../assets/Angy.jpeg';
 import ivonneImage from '../assets/ivonne.jpeg';
 import azaliaImage from '../assets/azalia.jpeg';
+import kumoImage from '../assets/kumo.png';
+import zuhImage from '../assets/zuni.png';
+import ordenaAquiImage from '../assets/ordenaAqui.png';
+import lumoImage from '../assets/logo lumo.png';
+import zuhoImage from '../assets/zuho_logo.png';
 
 export default function ARXSoftware() {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const recaptchaRef = useRef<any>(null);
 
+  const parallaxRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      // Efectos parallax
+      Object.keys(parallaxRefs.current).forEach((key) => {
+        const element = parallaxRefs.current[key];
+        if (element) {
+          const scrolled = window.pageYOffset;
+          
+          if (key === 'hero') {
+            element.style.transform = `translateY(${scrolled * 0.3}px)`;
+          } else if (key === 'about') {
+            element.style.transform = `translateY(${scrolled * 0.2}px)`;
+          } else if (key === 'portfolio') {
+            element.style.transform = `translateY(${scrolled * 0.15}px)`;
+          }
+        }
+      });
     };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -59,12 +78,13 @@ export default function ARXSoftware() {
   ];
 
   const projects = [
-    { name: "KUMO", category: "Gestión Documental", description: "Sistema móvil para captura de documentos desde celular, integrado con CONTPAQi Comercial. Caso real: ordena la documentación de ventas en campo.", icon: "📱" },
-    { name: "ZUHO Indicadores", category: "Gestión de Datos", description: "Dashboards automáticos que organizan información de CONTPAQi, Aspel y Microsip. Caso real: visualización clara de indicadores empresariales.", icon: "📊" },
+    { name: "KUMO", category: "Gestión Documental", description: "Sistema móvil para captura de documentos desde celular, integrado con CONTPAQi Comercial. Caso real: ordena la documentación de ventas en campo.", img : kumoImage },
+    { name: "ZUHO Indicadores", category: "Gestión de Datos", description: "Dashboards automáticos que organizan información de CONTPAQi, Aspel y Microsip. Caso real: visualización clara de indicadores empresariales.", img : zuhoImage },
     { name: "Conversión de Datos", category: "Gestión Contable", description: "Migración segura desde COI y Control 2000 a CONTPAQi. Caso real: ordena y traslada datos contables sin pérdida de información.", icon: "🔄" },
-    { name: "ZUNI", category: "Gestión de Inventarios", description: "Sistema web para control de ventas e inventarios en pymes. Caso real: ordena operaciones de almacén y ventas.", icon: "🌐" },
-    { name: "LUMO", category: "Gestión de Operaciones", description: "Sistema para gestión de acarreos de materiales en construcción. Caso real: organiza el flujo de materiales en obra.", icon: "🌐" },
-    { name: "QRIVA", category: "Gestión de Accesos", description: "Sistema de control de accesos a eventos con códigos QR. Caso real: ordena la entrada y registro de asistentes.", icon: "🌐" }
+    { name: "ZUNI", category: "Gestión de Inventarios", description: "Sistema web para control de ventas e inventarios en pymes. Caso real: ordena operaciones de almacén y ventas.", img: zuhImage },
+    { name: "LUMO", category: "Gestión de Operaciones", description: "Sistema para gestión de acarreos de materiales en construcción. Caso real: organiza el flujo de materiales en obra.", img : lumoImage },
+    { name: "OrdenAquí", category: "Gestión de Restaurantes", description: "App de comanda rápida para restaurantes pequeños. Crea mesas, registra platillos y toma pedidos en segundos. Funciona sin internet. Caso real: agiliza el servicio en restaurantes pequeños.", img: ordenaAquiImage },
+    
   ];
 
   const handleProjectClick = (name: string) => {
@@ -164,31 +184,150 @@ export default function ARXSoftware() {
     }}>
       <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { margin: 0; padding: 0; }
+        body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #f5f5f5; }
         html { scroll-behavior: smooth; margin: 0; padding: 0; }
         #root { margin: 0; padding: 0; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; font-weight: 800; }
+        
+        /* Animaciones */
         @keyframes blob {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(30px, -50px) scale(1.1); }
           66% { transform: translate(-20px, 20px) scale(0.9); }
         }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        @keyframes float { 
+          0%, 100% { transform: translateY(0px); } 
+          50% { transform: translateY(-20px); } 
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shimmer {
+          0% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
+        }
+        
         .animate-blob { animation: blob 7s infinite; }
         .delay-2000 { animation-delay: 2s; }
         .delay-4000 { animation-delay: 4s; }
         .animate-float { animation: float 3s ease-in-out infinite; }
+        .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+        
         .text-grad {
           background: linear-gradient(90deg, #d32f2f, #b71c1c);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
-        .btn-red { background: #d32f2f; color: white; border: none; padding: 1rem 2.5rem; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1.05rem; box-shadow: 0 4px 16px rgba(211, 47, 47, 0.2); }
-        .btn-red:hover { background: #b71c1c; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(211, 47, 47, 0.3); }
-        .card-hover { border: 1px solid rgba(211, 47, 47, 0.15); border-radius: 12px; padding: 2rem; background: #ffffff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card-hover:hover { border-color: rgba(211, 47, 47, 0.4); box-shadow: 0 6px 20px rgba(211, 47, 47, 0.12); transform: translateY(-2px); }
-        input, textarea { width: 100%; padding: 0.75rem 1rem; background: #ffffff; border: 1px solid rgba(211, 47, 47, 0.2); border-radius: 8px; color: #2a2a2a; font-family: inherit; transition: all 0.3s; }
-        input:focus, textarea:focus { outline: none; border-color: #d32f2f; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1); }
+        
+        /* Neumorfismo para botones */
+        .btn-red { 
+          background: linear-gradient(145deg, #d32f2f, #b71c1c);
+          color: white; 
+          border: none; 
+          padding: 1rem 2.5rem; 
+          border-radius: 20px; 
+          font-weight: 600; 
+          cursor: pointer; 
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+          font-size: 1.05rem; 
+          box-shadow: 
+            8px 8px 16px rgba(211, 47, 47, 0.3),
+            -8px -8px 16px rgba(255, 255, 255, 0.1),
+            inset 0 2px 4px rgba(255, 255, 255, 0.2);
+          position: relative;
+          overflow: hidden;
+        }
+        .btn-red::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          transition: left 0.5s;
+        }
+        .btn-red:hover::before {
+          left: 100%;
+        }
+        .btn-red:hover { 
+          transform: translateY(-2px) scale(1.02);
+          box-shadow: 
+            12px 12px 24px rgba(211, 47, 47, 0.4),
+            -12px -12px 24px rgba(255, 255, 255, 0.1),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+        .btn-red:active {
+          transform: translateY(0) scale(0.98);
+          box-shadow: 
+            4px 4px 8px rgba(211, 47, 47, 0.3),
+            -4px -4px 8px rgba(255, 255, 255, 0.1),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Neumorfismo para tarjetas */
+        .card-hover { 
+          border: none;
+          border-radius: 20px; 
+          padding: 2rem; 
+          background: #ffffff;
+          box-shadow: 
+            12px 12px 24px rgba(0, 0, 0, 0.15),
+            -12px -12px 24px rgba(255, 255, 255, 0.9);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: visible;
+        }
+        .card-hover::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, #d32f2f, #b71c1c);
+          transform: scaleX(0);
+          transition: transform 0.4s;
+        }
+        .card-hover:hover::before {
+          transform: scaleX(1);
+        }
+        .card-hover:hover { 
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 
+            16px 16px 32px rgba(0, 0, 0, 0.2),
+            -16px -16px 32px rgba(255, 255, 255, 1);
+        }
+        
+        /* Neumorfismo para inputs */
+        input, textarea { 
+          width: 100%; 
+          padding: 0.75rem 1rem; 
+          background: #f5f5f5; 
+          border: none; 
+          border-radius: 12px; 
+          color: #2a2a2a; 
+          font-family: inherit; 
+          transition: all 0.3s;
+          box-shadow: 
+            inset 4px 4px 8px rgba(0, 0, 0, 0.1),
+            inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+        }
+        input:focus, textarea:focus { 
+          outline: none; 
+          box-shadow: 
+            inset 6px 6px 12px rgba(0, 0, 0, 0.1),
+            inset -6px -6px 12px rgba(255, 255, 255, 0.9),
+            0 0 0 3px rgba(211, 47, 47, 0.2);
+        }
+        
+        /* Efectos parallax */
+        .parallax-section {
+          transition: transform 0.1s ease-out;
+          will-change: transform;
+        }
       `}</style>
 
       {/* Fondo decorativo sutil */}
@@ -198,40 +337,16 @@ export default function ARXSoftware() {
         <div className="animate-blob delay-4000" style={{ position: 'absolute', bottom: '-25%', left: '50%', width: '384px', height: '384px', backgroundColor: '#fff3e0', borderRadius: '50%', mixBlendMode: 'multiply', filter: 'blur(128px)', opacity: 0.2 }}></div>
       </div>
 
-      {/* Header */}
-      <header style={{
-        position: 'fixed',
-        width: '100%',
-        top: 0,
-        zIndex: 50,
-        backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.98)',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(211, 47, 47, 0.1)' : '1px solid rgba(211, 47, 47, 0.05)',
-        transition: 'all 0.3s ease',
-        boxShadow: scrolled ? '0 2px 12px rgba(0, 0, 0, 0.05)' : 'none'
-      }}>
-        <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '40px', height: '40px', background: '#d32f2f', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.125rem', fontWeight: 'bold', color: 'white', boxShadow: '0 4px 12px rgba(211, 47, 47, 0.25)' }}>A</div>
-            <span className="text-grad" style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1a1a1a' }}>ARX/SOFTWARE</span>
-          </div>
-          <nav style={{ display: isMenuOpen ? 'flex' : 'none', flexDirection: 'column', gap: '1rem', position: 'absolute', top: '5rem', left: 0, right: 0, backgroundColor: 'rgba(255, 255, 255, 0.98)', padding: '1rem', backdropFilter: 'blur(12px)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
-            {['#inicio', '#quienes', '#portafolio', '#contacto'].map((link, i) => (
-              <a key={i} href={link} style={{ color: '#2a2a2a', textDecoration: 'none', fontWeight: 500, fontSize: '0.95rem', padding: '0.5rem 1rem', borderRadius: '6px', transition: 'all 0.2s' }} onClick={() => setIsMenuOpen(false)} onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(211, 47, 47, 0.1)'} onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
-                {link.substring(1).charAt(0).toUpperCase() + link.substring(2)}
-              </a>
-            ))}
-          </nav>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} style={{ display: 'none', background: 'none', border: 'none', color: '#d32f2f', fontSize: '1.5rem', cursor: 'pointer' }} className="md-menu">
-            {isMenuOpen ? '✕' : '☰'}
-          </button>
-        </div>
-      </header>
-
       {/* Hero */}
-      <section id="inicio" style={{ position: 'relative', minHeight: '65vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '5rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, background: 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)' }}>
+      <section 
+        id="inicio" 
+        ref={(el) => { parallaxRefs.current['hero'] = el; }}
+        className="parallax-section"
+        style={{ position: 'relative', minHeight: '65vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '8rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, background: 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)', overflow: 'hidden' }}
+      >
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(0, 0, 0, 0.2)', zIndex: 1 }}></div>
-        <div style={{ maxWidth: '64rem', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)', zIndex: 1 }}></div>
+        <div style={{ maxWidth: '64rem', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }} className="fade-in-up">
           <div style={{ marginBottom: '2rem', display: 'inline-block' }} className="animate-float">
             <div style={{ padding: '0.75rem 1.5rem', borderRadius: '9999px', border: '1px solid rgba(255, 255, 255, 0.3)', backgroundColor: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(12px)', fontSize: '0.875rem', fontWeight: 600, color: '#ffffff' }}>
               Software de Gestión Empresarial
@@ -251,7 +366,12 @@ export default function ARXSoftware() {
       </section>
 
       {/* Quiénes Somos */}
-      <section id="about" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#ffffff' }}>
+      <section 
+        id="about" 
+        ref={(el) => { parallaxRefs.current['about'] = el; }}
+        className="parallax-section"
+        style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#f8f8f8' }}
+      >
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '1.5rem', color: '#1a1a1a', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Innovación con Propósito</h2>
@@ -259,7 +379,8 @@ export default function ARXSoftware() {
           </div>
           
           {/* Mensaje principal del jefe */}
-          <div style={{ padding: '3rem', borderRadius: '1.5rem', background: 'linear-gradient(135deg, rgba(211, 47, 47, 0.05), rgba(183, 28, 28, 0.03))', border: '2px solid rgba(211, 47, 47, 0.2)', marginBottom: '4rem', maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
+          <div style={{ padding: '3rem', borderRadius: '20px', background: '#f5f5f5', marginBottom: '4rem', maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto', boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.8)', border: 'none', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, #d32f2f, #b71c1c)' }}></div>
             <p style={{ fontSize: '1.15rem', color: '#2a2a2a', lineHeight: 1.8, marginBottom: '1.5rem', fontStyle: 'italic', textAlign: 'center' }}>
               Cuando hay orden, todo fluye: personas, datos y herramientas.
             </p>
@@ -276,10 +397,14 @@ export default function ARXSoftware() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '5rem' }}>
             {[{ title: 'Software de Gestión', desc: 'Especializados en sistemas que organizan procesos empresariales' }, { title: 'Integración Contable', desc: 'CONTPAQi, Aspel, Microsip y más' }, { title: 'Automatización de Procesos', desc: 'Sistemas que ordenan datos y operaciones' }].map((item, i) => (
-              <div key={i} className="card-hover" style={{ borderLeft: '5px solid #d32f2f' }}><h3 style={{ fontSize: '1.35rem', fontWeight: 600, color: '#1a1a1a', marginBottom: '0.8rem' }}>{item.title}</h3><p style={{ color: '#555555', lineHeight: 1.65 }}>{item.desc}</p></div>
+              <div key={i} className="card-hover" style={{ position: 'relative' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(180deg, #d32f2f, #b71c1c)', borderRadius: '20px 0 0 20px' }}></div>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 600, color: '#1a1a1a', marginBottom: '0.8rem' }}>{item.title}</h3>
+                <p style={{ color: '#555555', lineHeight: 1.65 }}>{item.desc}</p>
+              </div>
             ))}
           </div>
-          <div style={{ padding: '3rem', borderRadius: '1.5rem', background: '#fafafa', border: '1px solid rgba(211, 47, 47, 0.15)', marginBottom: '5rem' }}>
+          <div style={{ padding: '3rem', borderRadius: '20px', background: '#f5f5f5', marginBottom: '5rem', boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.8)', border: 'none' }}>
             <p style={{ fontSize: '1.125rem', color: '#2a2a2a', lineHeight: 1.8, marginBottom: '2rem', textAlign: 'center', fontWeight: 600 }}>
               Especialistas en Software de Gestión
             </p>
@@ -287,17 +412,58 @@ export default function ARXSoftware() {
               No hacemos de todo. Nos especializamos en desarrollar sistemas de gestión que ordenan empresas: control de inventarios, ventas, procesos operativos e integración con sistemas contables. Cada proyecto que desarrollamos resuelve problemas reales de gestión empresarial.
             </p>
           </div>
+
+          {/* Nuestro Equipo */}
           <h3 style={{ fontSize: '2.4rem', fontWeight: 600, textAlign: 'center', marginBottom: '4rem', color: '#1a1a1a', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Nuestro Equipo</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '6rem' }}>
             {team.map((member) => (
-              <div key={member.id}>
-                <div style={{ borderRadius: '1rem', overflow: 'hidden', marginBottom: '1.5rem', border: '2px solid rgba(211, 47, 47, 0.2)', transition: 'all 0.3s', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)' }}>
-                  <img src={member.image} alt={member.name} style={{ width: '100%', height: '280px', objectFit: 'cover' }} />
+              <div key={member.id} className="fade-in-up card-hover" style={{ 
+                animationDelay: `${member.id * 0.1}s`, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                height: '100%',
+                padding: '2rem',
+                background: '#ffffff',
+                boxShadow: '12px 12px 24px rgba(0, 0, 0, 0.15), -12px -12px 24px rgba(255, 255, 255, 0.9)',
+                position: 'relative',
+                zIndex: 1,
+                borderRadius: '20px'
+              }}>
+                <div style={{ 
+                  borderRadius: '20px', 
+                  overflow: 'hidden', 
+                  marginBottom: '1.5rem', 
+                  boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.8)', 
+                  transition: 'all 0.4s', 
+                  border: 'none', 
+                  background: '#f8f8f8', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  height: '280px', 
+                  padding: '1rem',
+                  position: 'relative'
+                }}>
+                  <img 
+                    src={member.image} 
+                    alt={member.name} 
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover', 
+                      display: 'block', 
+                      borderRadius: '16px' 
+                    }} 
+                  />
                 </div>
-                <div style={{ backgroundColor: '#ffffff', border: '1px solid rgba(211, 47, 47, 0.15)', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)' }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#d32f2f', marginBottom: '0.5rem' }}>{member.name}</h3>
-                  <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#b71c1c', marginBottom: '0.75rem' }}>{member.role}</p>
-                  <p style={{ color: '#555555', fontSize: '0.95rem', lineHeight: 1.6 }}>{member.bio}</p>
+                <div style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  flex: 1
+                }}>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#d32f2f', marginBottom: '0.5rem', lineHeight: 1.3 }}>{member.name}</h3>
+                  <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#b71c1c', marginBottom: '0.75rem', lineHeight: 1.4 }}>{member.role}</p>
+                  <p style={{ color: '#555555', fontSize: '0.95rem', lineHeight: 1.6, flex: 1 }}>{member.bio}</p>
                 </div>
               </div>
             ))}
@@ -306,23 +472,87 @@ export default function ARXSoftware() {
       </section>
 
       {/* Portafolio */}
-      <section id="portfolio" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#fafafa' }}>
+      <section 
+        id="portfolio" 
+        ref={(el) => { parallaxRefs.current['portfolio'] = el; }}
+        className="parallax-section"
+        style={{ position: 'relative', paddingTop: '8rem', paddingBottom: '10rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#f8f8f8' }}
+      >
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '1.5rem', color: '#d32f2f', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Casos Reales de Gestión</h2>
             <p style={{ fontSize: '1.25rem', color: '#555555' }}>Sistemas que hemos desarrollado para ordenar procesos empresariales</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '8rem' }}>
             {projects.map((project, idx) => (
-              <div key={idx} className="card-hover" style={{cursor:'pointer', borderLeft: '5px solid #d32f2f'}} onClick={() => handleProjectClick(project.name)}>
-                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{project.icon}</div>
+              <div 
+                key={idx} 
+                className="card-hover fade-in-up" 
+                style={{
+                  cursor:'pointer', 
+                  position: 'relative', 
+                  animationDelay: `${idx * 0.1}s`, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  height: '100%', 
+                  minHeight: '380px',
+                  background: '#ffffff',
+                  boxShadow: '12px 12px 24px rgba(0, 0, 0, 0.15), -12px -12px 24px rgba(255, 255, 255, 0.9)',
+                  zIndex: 1
+                }} 
+                onClick={() => handleProjectClick(project.name)}
+              >
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(180deg, #d32f2f, #b71c1c)', borderRadius: '20px 0 0 20px', zIndex: 2 }}></div>
+                {project.img ? (
+                  <div style={{ 
+                    marginBottom: '1.5rem', 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    minHeight: '160px', 
+                    maxHeight: '180px', 
+                    background: '#f8f8f8', 
+                    borderRadius: '12px', 
+                    padding: '1.5rem',
+                    boxShadow: 'inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.8)'
+                  }}>
+                    <img 
+                      src={project.img} 
+                      alt={project.name} 
+                      style={{ 
+                        maxWidth: '100%', 
+                        maxHeight: '160px', 
+                        width: 'auto',
+                        height: 'auto',
+                        objectFit: 'contain',
+                        borderRadius: '8px',
+                        display: 'block'
+                      }} 
+                    />
+                  </div>
+                ) : (
+                  <div style={{ 
+                    fontSize: '3rem', 
+                    marginBottom: '1rem', 
+                    textAlign: 'center', 
+                    minHeight: '140px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    background: '#f8f8f8',
+                    borderRadius: '12px',
+                    padding: '1rem'
+                  }}>
+                    {project.icon}
+                  </div>
+                )}
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#1a1a1a', marginBottom: '0.5rem' }}>{project.name}</h3>
                 <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#d32f2f', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{project.category}</p>
-                <p style={{ color: '#555555', fontSize: '0.95rem', lineHeight: 1.65 }}>{project.description}</p>
+                <p style={{ color: '#555555', fontSize: '0.95rem', lineHeight: 1.65, flex: 1 }}>{project.description}</p>
               </div>
             ))}
           </div>
-          <div style={{ padding: '3rem', borderRadius: '1.5rem', background: '#ffffff', border: '1px solid rgba(211, 47, 47, 0.2)', boxShadow: '0 2px 12px rgba(211, 47, 47, 0.08)', transition: 'all 0.3s' }}>
+          <div className="card-hover" style={{ padding: '3rem', marginBottom: '4rem' }}>
             <h3 style={{ fontSize: '2rem', fontWeight: 600, color: '#d32f2f', marginBottom: '1.5rem', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Especialización en Software de Gestión</h3>
             <p style={{ fontSize: '1.125rem', color: '#2a2a2a', marginBottom: '2rem', lineHeight: 1.8 }}>Cada sistema que desarrollamos está diseñado para ordenar procesos específicos: gestión de inventarios, control de ventas, seguimiento de operaciones y migración de datos contables. No hacemos de todo, nos especializamos en sistemas que organizan empresas.</p>
             <button className="btn-red">Ver Nuestros Casos</button>
@@ -331,18 +561,30 @@ export default function ARXSoftware() {
       </section>
 
       {/* Contacto */}
-      <section id="contact" style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#ffffff' }}>
+      <section id="contact" style={{ position: 'relative', paddingTop: '10rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#f5f5f5' }}>
         <div style={{ maxWidth: '56rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 600, marginBottom: '1.5rem', color: '#1a1a1a', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Listo para Transformar</h2>
             <p style={{ fontSize: '1.25rem', color: '#555555' }}>Cuéntanos sobre tu proyecto</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
-            <div className="card-hover" style={{ borderLeft: '5px solid #d32f2f' }}><h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.5rem', color: '#1a1a1a' }}>Email</h3><p style={{ color: '#555555' }}>carlos.palacios@arxsoftware.cloud</p></div>
-            <div className="card-hover" style={{ borderLeft: '5px solid #d32f2f' }}><h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.5rem', color: '#1a1a1a' }}>Teléfono</h3><p style={{ color: '#555555' }}>961 255 7183</p></div>
+            <div className="card-hover" style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(180deg, #d32f2f, #b71c1c)', borderRadius: '20px 0 0 20px' }}></div>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.5rem', color: '#1a1a1a' }}>Email</h3>
+              <p style={{ color: '#555555' }}>carlos.palacios@arxsoftware.cloud</p>
+            </div>
+            <div className="card-hover" style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(180deg, #d32f2f, #b71c1c)', borderRadius: '20px 0 0 20px' }}></div>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.5rem', color: '#1a1a1a' }}>Teléfono</h3>
+              <p style={{ color: '#555555' }}>961 255 7183</p>
+            </div>
           </div>
-          <div className="card-hover" style={{ marginBottom: '2rem', borderLeft: '5px solid #d32f2f' }}><h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.5rem', color: '#1a1a1a' }}>Ubicación</h3><p style={{ color: '#555555' }}>Tuxtla Gutiérrez, Chiapas, México</p></div>
-          <div style={{ padding: '2rem', borderRadius: '1rem', backgroundColor: '#ffffff', border: '1px solid rgba(211, 47, 47, 0.15)', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)' }}>
+          <div className="card-hover" style={{ marginBottom: '2rem', position: 'relative' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(180deg, #d32f2f, #b71c1c)', borderRadius: '20px 0 0 20px' }}></div>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.5rem', color: '#1a1a1a' }}>Ubicación</h3>
+            <p style={{ color: '#555555' }}>Tuxtla Gutiérrez, Chiapas, México</p>
+          </div>
+          <div className="card-hover" style={{ padding: '2rem' }}>
             {/* Mensaje de error */}
             {error && (
               <div style={{ 
@@ -456,7 +698,7 @@ export default function ARXSoftware() {
       </section>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid rgba(211, 47, 47, 0.1)', paddingTop: '3rem', paddingBottom: '3rem', paddingLeft: '1rem', paddingRight: '1rem', backgroundColor: '#d32f2f', textAlign: 'center' }}>
+      <footer style={{ borderTop: 'none', paddingTop: '3rem', paddingBottom: '3rem', paddingLeft: '1rem', paddingRight: '1rem', background: 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)', textAlign: 'center', boxShadow: '0 -8px 32px rgba(211, 47, 47, 0.2)' }}>
         <p style={{ fontWeight: 600, fontSize: '1.125rem', color: '#ffffff' }}>© 2024 ARX/SOFTWARE</p>
         <p style={{ color: 'rgba(255, 255, 255, 0.9)', marginTop: '0.5rem', fontSize: '0.875rem' }}>Desarrollamos sistemas que ordenan empresas - Tuxtla Gutiérrez, Chiapas</p>
       </footer>

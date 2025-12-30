@@ -1,12 +1,16 @@
 /* PALETA CORPORATIVA */
 :root {
-  --red-main: #891D1A;
-  --beige-bg: #F1E6D2;
+  --red-main: #d32f2f;
+  --red-dark: #b71c1c;
+  --beige-bg: #f5f5f5;
   --accent-bluegray: #5E657B;
-  --black-warm: #210706;
+  --black-warm: #1a1a1a;
   --white: #fff;
-  --card-bg: #fff;
+  --card-bg: #f5f5f5;
+  --shadow-light: rgba(255, 255, 255, 0.8);
+  --shadow-dark: rgba(0, 0, 0, 0.1);
 }
+
 html, body {
   min-width: 100vw;
   min-height: 100vh;
@@ -14,89 +18,148 @@ html, body {
   height: 100%;
   background: var(--beige-bg);
   color: var(--accent-bluegray);
-  font-family: 'Inter', system-ui, Arial, sans-serif;
+  font-family: 'Poppins', 'Inter', system-ui, Arial, sans-serif;
+  scroll-behavior: smooth;
 }
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
+
 *, *::before, *::after {
   box-sizing: inherit;
 }
+
 a {
   color: var(--red-main);
   text-decoration: none;
-  transition: color .2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 a:hover {
-  color: var(--black-warm);
-  text-decoration: underline;
+  color: var(--red-dark);
 }
+
 h1, h2, h3, h4 {
   margin-top: 0;
-  font-family: inherit;
+  font-family: 'Poppins', sans-serif;
   color: var(--black-warm);
-  font-weight: 900;
+  font-weight: 800;
 }
+
 section {
   width: 100%;
   padding-inline: 24px;
   box-sizing: border-box;
 }
+
 .table-container {
   overflow-x: auto;
 }
+
 table {
   border-collapse: collapse;
   width: 100%;
   background: var(--card-bg);
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
   font-size: 1rem;
+  box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
 }
+
 th, td {
   padding: 14px 10px;
   text-align: left;
 }
+
 th {
   background: var(--accent-bluegray);
   color: var(--beige-bg);
   font-weight: 700;
   font-size: 1.05em;
 }
+
 tbody tr:nth-child(even) {
-  background: #f7f3ea;
+  background: rgba(211, 47, 47, 0.05);
 }
+
 button, input, textarea {
   font-family: inherit;
-  border-radius: 6px;
-  border: 1px solid #dadada;
-  background: var(--white);
+  border-radius: 12px;
+  border: none;
 }
+
 button {
-  background: var(--red-main);
+  background: linear-gradient(145deg, var(--red-main), var(--red-dark));
   color: var(--white);
   font-weight: 600;
-  border: none;
   padding: 0.95em 2.2em;
-  transition: background .23s, box-shadow .23s;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  box-shadow: 8px 8px 16px rgba(211, 47, 47, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.1);
 }
+
 button:hover {
-  background: var(--accent-bluegray);
+  transform: translateY(-2px);
+  box-shadow: 12px 12px 24px rgba(211, 47, 47, 0.4), -12px -12px 24px rgba(255, 255, 255, 0.1);
 }
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 4px 4px 8px rgba(211, 47, 47, 0.3), -4px -4px 8px rgba(255, 255, 255, 0.1);
+}
+
 input, textarea {
   width: 100%;
   padding: 0.7em 1em;
   margin-bottom: 10px;
   font-size: 1em;
-  border: 1px solid #dfdfdf;
+  background: var(--card-bg);
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  transition: all 0.3s;
 }
+
 input:focus, textarea:focus {
-  border-color: var(--red-main);
-  outline: 2px solid var(--red-main);
+  outline: none;
+  box-shadow: 
+    inset 6px 6px 12px var(--shadow-dark),
+    inset -6px -6px 12px var(--shadow-light),
+    0 0 0 3px rgba(211, 47, 47, 0.2);
 }
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--beige-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--red-main), var(--red-dark));
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--red-dark);
+}
+
 @media (max-width: 600px) {
   section { padding-inline: 2vw; }
+  
+  .card-hover {
+    padding: 1.5rem !important;
+  }
+  
+  h1 {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+  }
 }
