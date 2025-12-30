@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import logoArx from '../assets/LOGO_ARX.svg';
+import logoArx from '../assets/ARX-removebg-preview.png';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
