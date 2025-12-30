@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -21,30 +21,6 @@ export default function ARXSoftware() {
   const [error, setError] = useState('');
   const recaptchaRef = useRef<any>(null);
 
-  const parallaxRefs = useRef<{ [key: string]: HTMLElement | null }>({});
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Efectos parallax
-      Object.keys(parallaxRefs.current).forEach((key) => {
-        const element = parallaxRefs.current[key];
-        if (element) {
-          const scrolled = window.pageYOffset;
-          
-          if (key === 'hero') {
-            element.style.transform = `translateY(${scrolled * 0.3}px)`;
-          } else if (key === 'about') {
-            element.style.transform = `translateY(${scrolled * 0.2}px)`;
-          } else if (key === 'portfolio') {
-            element.style.transform = `translateY(${scrolled * 0.15}px)`;
-          }
-        }
-      });
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const team = [
     {
@@ -323,11 +299,6 @@ export default function ARXSoftware() {
             0 0 0 3px rgba(211, 47, 47, 0.2);
         }
         
-        /* Efectos parallax */
-        .parallax-section {
-          transition: transform 0.1s ease-out;
-          will-change: transform;
-        }
       `}</style>
 
       {/* Fondo decorativo sutil */}
@@ -340,8 +311,6 @@ export default function ARXSoftware() {
       {/* Hero */}
       <section 
         id="inicio" 
-        ref={(el) => { parallaxRefs.current['hero'] = el; }}
-        className="parallax-section"
         style={{ position: 'relative', minHeight: '65vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '8rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, background: 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)', overflow: 'hidden' }}
       >
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(0, 0, 0, 0.2)', zIndex: 1 }}></div>
@@ -368,9 +337,7 @@ export default function ARXSoftware() {
       {/* Quiénes Somos */}
       <section 
         id="about" 
-        ref={(el) => { parallaxRefs.current['about'] = el; }}
-        className="parallax-section"
-        style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '6rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#f8f8f8' }}
+        style={{ position: 'relative', paddingTop: '6rem', paddingBottom: '8rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#f8f8f8' }}
       >
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -474,8 +441,6 @@ export default function ARXSoftware() {
       {/* Portafolio */}
       <section 
         id="portfolio" 
-        ref={(el) => { parallaxRefs.current['portfolio'] = el; }}
-        className="parallax-section"
         style={{ position: 'relative', paddingTop: '8rem', paddingBottom: '10rem', paddingLeft: '1rem', paddingRight: '1rem', zIndex: 10, backgroundColor: '#f8f8f8' }}
       >
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
