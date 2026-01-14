@@ -9,9 +9,9 @@ import ivonneImage from '../assets/ivonne.jpeg';
 import azaliaImage from '../assets/azalia.jpeg';
 import kumoImage from '../assets/kumo.png';
 import zuhImage from '../assets/zuni.png';
-import ordenaAquiImage from '../assets/ordenaAqui.png';
-import lumoImage from '../assets/logo lumo.png';
-import zuhoImage from '../assets/zuho_logo.png';
+import ordenaAquiImage from '../assets/ordena.png';
+import lumoImage from '../assets/lumo.png';
+import zuhoImage from '../assets/zuho.png';
 
 export default function ARXSoftware() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function ARXSoftware() {
     },
     {
       id: 2,
-      name: "Angy calderon",
+      name: "Ángela Monzón",
       role: "Marketing/Documentacion",
       image: angyImage,
       bio: "Experta en marketing y documentacion"
@@ -481,10 +481,10 @@ export default function ARXSoftware() {
             </div>
           </div>
           <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', fontWeight: 700, marginBottom: '1.5rem', lineHeight: 1.2, color: '#ffffff', fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: '-0.02em', textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)' }}>
-            Desarrollamos sistemas que ordenan empresas
+            Desarrollamos e implementamos soluciones de sistemas digitales
           </h1>
           <p style={{ fontSize: 'clamp(1rem, 4vw, 1.2rem)', color: 'rgba(255, 255, 255, 0.95)', marginBottom: '2.5rem', lineHeight: 1.7, maxWidth: '56rem', marginLeft: 'auto', marginRight: 'auto', padding: '0 1rem' }}>
-            Especializados en software de gestión. Creamos soluciones que organizan procesos, datos y operaciones para que tu empresa funcione de manera más eficiente y ordenada.
+            Creamos herramientas que agilicen procesos, optimicen costos y tiepos de ejecución.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center', width: '100%', padding: '0 1rem' }}>
             <button className="btn-red" style={{ width: '100%', maxWidth: '300px' }}>Comenzar Ahora →</button>
@@ -512,17 +512,17 @@ export default function ARXSoftware() {
             </p>
             <div style={{ borderTop: '1px solid rgba(211, 47, 47, 0.2)', paddingTop: '1.5rem', marginTop: '1.5rem' }}>
               <p style={{ fontSize: '1.1rem', color: '#2a2a2a', lineHeight: 1.8, marginBottom: '1rem', textAlign: 'center' }}>
-                Las empresas no fallan por falta de esfuerzo.<br />
-                Fallan por procesos confusos, información dispersa y decisiones tomadas a ciegas.
+                Las empresas exitosas requieren más que esfuerzo.<br />
+                Necesitan herramientas que los respalden.
               </p>
               <p style={{ fontSize: '1.3rem', color: '#d32f2f', fontWeight: 600, lineHeight: 1.6, textAlign: 'center' }}>
-                Nuestro trabajo es ayudarte a poner orden.
+                Nuestro trabajo es facilitarte el tuyo.
               </p>
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '5rem' }}>
-            {[{ title: 'Software de Gestión', desc: 'Especializados en sistemas que organizan procesos empresariales' }, { title: 'Integración Contable', desc: 'CONTPAQi, Aspel, Microsip y más' }, { title: 'Automatización de Procesos', desc: 'Sistemas que ordenan datos y operaciones' }].map((item, i) => (
+            {[{ title: 'Software de Gestión', desc: 'Especializados en sistemas que agilizan procesos operativos' }, { title: 'Automatización de Procesos', desc: 'Sistemas que ordenan datos y operaciones' }].map((item, i) => (
               <div key={i} className="card-hover" style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(180deg, #d32f2f, #b71c1c)', borderRadius: '20px 0 0 20px' }}></div>
                 <h3 style={{ fontSize: '1.35rem', fontWeight: 600, color: '#1a1a1a', marginBottom: '0.8rem' }}>{item.title}</h3>
@@ -530,14 +530,7 @@ export default function ARXSoftware() {
               </div>
             ))}
           </div>
-          <div style={{ padding: '3rem', borderRadius: '20px', background: '#f5f5f5', marginBottom: '5rem', boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.8)', border: 'none' }}>
-            <p style={{ fontSize: '1.125rem', color: '#2a2a2a', lineHeight: 1.8, marginBottom: '2rem', textAlign: 'center', fontWeight: 600 }}>
-              Especialistas en Software de Gestión
-            </p>
-            <p style={{ fontSize: '1.125rem', color: '#2a2a2a', lineHeight: '1.8', marginBottom: '2rem' }}>
-              Nos especializamos en desarrollar sistemas de gestión que ordenan empresas: control de inventarios, ventas, procesos operativos e integración con sistemas contables. Cada proyecto que desarrollamos resuelve problemas reales de gestión empresarial.
-            </p>
-          </div>
+          
 
           {/* Nuestro Equipo */}
           <h3 style={{ fontSize: 'clamp(1.75rem, 5vw, 2.4rem)', fontWeight: 600, textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 4rem)', color: '#1a1a1a', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Nuestro Equipo</h3>
@@ -604,8 +597,8 @@ export default function ARXSoftware() {
       >
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '1.5rem', color: '#d32f2f', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Casos Reales de Gestión</h2>
-            <p style={{ fontSize: '1.25rem', color: '#555555' }}>Sistemas que hemos desarrollado para ordenar procesos empresariales</p>
+            <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '1.5rem', color: '#d32f2f', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Portafolio de sistemas digitales</h2>
+            <p style={{ fontSize: '1.25rem', color: '#555555' }}>Sistemas desarrollados para impulsar a las empresas</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '8rem' }}>
             {projects.map((project, idx) => (
@@ -678,7 +671,7 @@ export default function ARXSoftware() {
           </div>
           <div className="card-hover" style={{ padding: 'clamp(1.5rem, 4vw, 3rem)', marginBottom: '4rem' }}>
             <h3 style={{ fontSize: '2rem', fontWeight: 600, color: '#d32f2f', marginBottom: '1.5rem', fontFamily: "'Georgia', 'Times New Roman', serif" }}>Especialización en Software de Gestión</h3>
-            <p style={{ fontSize: '1.125rem', color: '#2a2a2a', marginBottom: '2rem', lineHeight: 1.8 }}>Cada sistema que desarrollamos está diseñado para ordenar procesos específicos: gestión de inventarios, control de ventas, seguimiento de operaciones y migración de datos contables. No hacemos de todo, nos especializamos en sistemas que organizan empresas.</p>
+            <p style={{ fontSize: '1.125rem', color: '#2a2a2a', marginBottom: '2rem', lineHeight: 1.8 }}>Cada sistema que desarrollamos esta pensado para resolver las necesidades operativas especificas de cada empresa.</p>
        
           </div>
         </div>
@@ -824,7 +817,7 @@ export default function ARXSoftware() {
       {/* Footer */}
       <footer style={{ borderTop: 'none', paddingTop: '3rem', paddingBottom: '3rem', paddingLeft: '1rem', paddingRight: '1rem', background: 'linear-gradient(110deg, #d32f2f 0%, #c62828 40%, #b71c1c 100%)', textAlign: 'center', boxShadow: '0 -8px 32px rgba(211, 47, 47, 0.2)' }}>
         <p style={{ fontWeight: 600, fontSize: '1.125rem', color: '#ffffff' }}>© 2024 ARX/SOFTWARE</p>
-        <p style={{ color: 'rgba(255, 255, 255, 0.9)', marginTop: '0.5rem', fontSize: '0.875rem' }}>Desarrollamos sistemas que ordenan empresas - Tuxtla Gutiérrez, Chiapas</p>
+        <p style={{ color: 'rgba(255, 255, 255, 0.9)', marginTop: '0.5rem', fontSize: '0.875rem' }}>Tuxtla Gutiérrez, Chiapas</p>
       </footer>
     </div>
   );
